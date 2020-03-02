@@ -1,0 +1,77 @@
+Lawful Awful  Copyright 2020, Violet Baddley.
+All rights reserved.
+
+This software is provided under the terms of the Chillbot Social License, version 0.1.0.
+
+
+---
+
+
+CHILLBOT SOCIAL LICENSE
+Version 0.1.0
+
+Redistribution and use is permitted, subject to ALL of the following conditions:
+
+1. The software is provided AS-IS, without any warranty of any kind, and you take full
+   responsibility for your use of it. In no event shall the copyright holders be held
+   liable for any damages related in any way to your use of the software.
+
+2. The software may only be used or distributed by Permitted Entities, as defined below;
+   it may not be used by any Prohibited Entities, as defined below, for any purpose
+   whatsoever. Use by a Prohibited Entity extends to the actions taken by an individual
+   person on behalf of or in service to said Entity. This includes, but is not limited to,
+   duties performed by a person in their line of work as an employee or contractor of a
+   Prohibited Entity.
+
+3. The software may not be used in any way which could impede or block any person's travel
+   across a geopolitical border.
+
+4. The software may not be used in any way which could discriminate against people
+   marginalized by race, religious affiliation, socioeconomic status, gender (including
+   gender identity), sexual orientation, disability, or past criminalization by a
+   state. The software may not be used to process data which contains latent biases around
+   the above marginalizing factors, when the processed data will be used in ways which
+   discriminate and reinforce these biases; or when the processed data will be made
+   available in a form which could, intentionally or unintentionally, lead another party
+   to do so.
+
+5. The software may not be used to automatically collect or process information from
+   people who have not provided explicit, informed, wholly optional, and unambiguous
+   consent. Such consent is not considered wholly optional if declining to consent would
+   bar a person from using a service or entering a public or semi-public place.
+
+6. Permitted Entities may use services provided by a Prohibited Entity in order to
+   redistribute the software, but may not further permit those Prohibited Entities to
+   execute or use the software.
+
+7. Redistributions of the software (in source or binary form) must include all copyright
+   notices and the full text of this license.
+
+8. The software may be modified and redistributed, so long as all derivative works are
+   also distributed under this license.
+
+9. Redistributions of the software in binary form must provide the source code, either
+   along with the binary form, or in a way which is equally easy and obvious to obtain.
+
+
+
+PERMITTED ENTITIES
+
+- Individual persons.
+- Informal groups of persons which operate in a non-profit manner.
+- Organizations legally incorporated as not-for-profit.
+
+PROHIBITED ENTITIES
+
+- Corporations and other organizations which are legally permitted to make a profit
+  (whether they in fact make a profit or not).
+- Military and police organizations, as well as any organizations which (in whole or part)
+  have a police-like function.
+
+
+
+This version of the Chillbot Social License, wherever used or referenced, may be
+substituted with any later version of the license as published by Violet Baddley or her
+designees.
+
+The text of this license itself is public domain.
