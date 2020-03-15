@@ -8,8 +8,16 @@ func routes(_ app: Application) throws {
 
     app.get("status") { _ in "OK" }
 
-    let gameplay = Gameplay()
-    app.post("games", "new", use: gameplay.newGame)
-    app.post("players", "new", use: gameplay.newPlayer)
+    let creation = Creation()
+    app.post("games", "new", use: creation.newGame)
+    app.post("players", "new", use: creation.newPlayer)
+
+    let communication = Communication()
+
+    app.webSocket(
+      "games", "connect",
+      onUpgrade: { req, ws in
+          communication.handleGameNotifs(req, ws)
+      })
 
 }

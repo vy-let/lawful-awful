@@ -3,7 +3,7 @@ import Vapor
 
 
 
-struct Gameplay {
+struct Creation {
 
     func newGame (req: Request) throws -> EventLoopFuture<NewGameResponse> {
         let newReq = try req.content.decode(NewGameRequest.self)
