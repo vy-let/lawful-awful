@@ -14,10 +14,8 @@ func routes(_ app: Application) throws {
 
     let communication = Communication()
 
-    app.webSocket(
-      "games", "connect",
-      onUpgrade: { req, ws in
-          communication.handleGameNotifs(req, ws)
-      })
+    app.webSocket( "games", "connect" ) { req, ws in
+        communication.handleGameNotifs(req, ws)
+    }
 
 }
