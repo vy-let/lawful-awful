@@ -62,7 +62,11 @@ protocol GameEvent: Codable {
 
 
 
-struct GameInfoEvent: GameEvent {
+protocol HostEvent: GameEvent { }
+
+
+
+struct GameInfoEvent: GameEvent, HostEvent {
     let type = "gameInfo"
     let theme: String
 }

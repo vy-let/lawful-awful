@@ -50,11 +50,13 @@ class ActiveGame {
 
 
     func connect (hostOn socket: WebSocket) {
-
+        let messages = events.filter { $0 is HostEvent }
+        socket.subscribe(to: messages)
+          .dispose(on: disposeBag)
     }
 
     func connect (player: Player, on socket: WebSocket) {
-
+        print("todo")
     }
 
 
