@@ -3,7 +3,8 @@
 // clients.
 
 import Dispatch
-import RxSwift
+// import RxSwift
+import Vapor
 
 class ActiveGame {
 
@@ -32,31 +33,45 @@ class ActiveGame {
 
 
     let game: Game
-    let events: PublishSubject<GameEvent>
-    let scheduler: SerialDispatchQueueScheduler
-    let disposeBag: DisposeBag
+    var hostConnections: Set<WebSocket> = []
+    var playerConnections: Dictionary<Int, WebSocket> = [:]
+    let gameQ: DispatchQueue
+
+    // let events: PublishSubject<GameEvent>
+    // let scheduler: SerialDispatchQueueScheduler
+    // let disposeBag: DisposeBag
 
     init (_ game: Game) {
         let gameID = game.id?.description ?? "unknown"
 
         self.game = game
-        self.events = PublishSubject()
-        self.scheduler = SerialDispatchQueueScheduler(
-          qos: .userInteractive
-          internalSerialQueueName: "space.chillbot.lawful-awful.game-queue-\(gameID)" )
-        self.disposeBag = DisposeBag()
+        self.gameQ = DispatchQueue(
+          label: "space.chillbot.lawful-awful.game-queue-\(gameID)" )
+
+        // self.events = PublishSubject()
+        // self.scheduler = SerialDispatchQueueScheduler(
+        //   qos: .userInteractive,
+        //   internalSerialQueueName: "space.chillbot.lawful-awful.game-queue-\(gameID)" )
+        // self.disposeBag = DisposeBag()
     }
 
 
 
     func connect (hostOn socket: WebSocket) {
-        let messages = events.filter { $0 is HostEvent }
-        socket.subscribe(to: messages)
-          .dispose(on: disposeBag)
+        gameQ.async(execute: DispatchWorkItem {
+                        self.hostConnections.insert(socket)
+                    })
+        socket.onCloseCode { code in
+            self.gameQ.async(execute: DispatchWorkItem {
+                            self.hostConnections.remove(socket)
+                        })
+        }
     }
 
     func connect (player: Player, on socket: WebSocket) {
-        print("todo")
+        gameQ.async(execute: DispatchWorkItem {
+                        self.playerConnections.append(socket)
+                    })
     }
 
 

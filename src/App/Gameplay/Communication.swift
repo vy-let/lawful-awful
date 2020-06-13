@@ -9,28 +9,6 @@ struct Communication {
 
 
     func handleGameNotifs (_ req: Request, _ ws: WebSocket) {
-        // let messages = Observable<GameNotif>.create { subscriber in
-        //     let connection = self.authGameConnection(req)
-        //     connection.whenSuccess { game in
-        //           subscriber.on(.next( GameNotif(kind: game.theme) ))
-        //           subscriber.on(.completed)
-        //       }
-        //     connection.whenFailure { err in subscriber.on(.error( err ))}
-
-        //     return Disposables.create {
-        //         print("Will close")
-        //         let _ = ws.close()
-        //     }
-        // }.take(1)
-
-        // let _ = messages.subscribe(onNext: { message in
-        //                                try! ws.sendJSON(message)
-        //                    },
-        //                    onError: { err in
-        //                        print(err)
-        //                        ws.send("Got an error!")
-        //                    })
-
         let connection = self.authGameConnection(req)
         connection.whenSuccess { game in
             let ag = ActiveGame.forGame(game)
@@ -56,19 +34,49 @@ struct Communication {
 
 
 
-protocol GameEvent: Codable {
-    let type: String
+enum EventForClient: String, Codable {
+    case gameData
+    case gatherPrompts
+    case gatherResponses
+    case gatherVote
+    case results
+}
+
+enum GameState: String, Codable {
+    case blank
+    case gatheringPrompts
+    case gatheringResponses
+    case gatheringVotes
+    case finished
+}
+
+protocol MessageForClient {
+    var event: EventForClient { get }
 }
 
 
 
-protocol HostEvent: GameEvent { }
-
-
-
-struct GameInfoEvent: GameEvent, HostEvent {
-    let type = "gameInfo"
+struct GameDataMessage: MessageForClient, Encodable {
+    let event = EventForClient.gameData
+    let state: GameState
     let theme: String
+    let playerCode: String
+}
+
+struct GatherPromptsMessage: MessageForClient, Encodable {
+    let event = EventForClient.gatherPrompts
+}
+
+struct GatherResponsesMessage: MessageForClient, Encodable {
+    let event = EventForClient.gatherResponses
+    let prompts: [String]
+}
+
+struct GatherVoteMessage: MessageForClient, Encodable {
+    let event = EventForClient.gatherVote
+    let prompt: String
+    let responseLeft: String
+    let responseRight: String
 }
 
 
@@ -91,7 +99,7 @@ extension WebSocket {
     func subscribe<V> (to messages: Observable<V>) -> Disposable
       where V: Encodable {
         return messages
-          .takeWhile { !self.isClosed }
+          .takeWhile { _ in !self.isClosed }
           .subscribe(
             onNext: { message in
                 do {
