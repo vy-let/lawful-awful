@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  develop:
+    build:
+      context: .
+      dockerfile: Dockerfile-Server
+    command: swift run lawful-awful serve --bind 0.0.0.0:9292
+    ports:
+      - '9292:9292'
+    volumes:
+      - .:/lawful-awful

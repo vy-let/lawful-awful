@@ -1,0 +1,15 @@
+FROM swift:5.2-focal
+
+RUN mkdir -p /lawful-awful
+
+RUN apt-get -y update \
+ && apt-get -y install libsqlite3-dev
+
+# With any luck, this newly-created user should match up with your
+# user id on the host machine, alleviating permissions weirdness. That
+# usually seems to be uid 1000.
+
+RUN useradd --create-home --shell /bin/bash swift
+USER swift
+
+WORKDIR /lawful-awful
